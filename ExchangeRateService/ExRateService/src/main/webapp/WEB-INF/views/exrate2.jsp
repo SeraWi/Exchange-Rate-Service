@@ -24,7 +24,8 @@
 <body>
 	<h1>환율 계산</h1>
 	
-		<div id="currForm"> 
+	<form id="transferForm">
+		<div> 
 			<div>송금국가 : 미국(USD) </div>
 			<div>수취국가: 
 				<select name ="currencies" id="currencies" onchange="selectCurrency(this.value);">
@@ -38,63 +39,69 @@
 			<div>송금액: <input type="number" id="amount" size="20px" maxlength="10" required> USD</div>
 			<div><input type="button" value ="submit" ></div>
 		</div> 
+	</form> <!-- from 끝 -->
 	
-	<div id="result"></div> <!-- 수취금액 결과  -->
+	<div id="result"></div>
 	
 	
 	<script>
 	
-
+	/* access_key 고정, 송금국가 USD 고정 */
+	const access_key='8711282f6324e9bbcaf2ea89273b8953';
+	const source ='USD';
+	
 	/* select box 수취국가 선택시 ajax로 환율 정보 서버로 요청 */
 	function selectCurrency(currency){
-		/* 선택한 해당 수취국가 KRW  */
+		/* 선택한 해당 수취국가 USDKRW  */
 		var currency = currency;  	
 							
 		 $.ajax({
-			   url:'<c:url value="/getExrate"/>',
+			   url:'http://apilayer.net/api/live',
+			   dataType: 'json',
 			   type:'GET',
 			   data:{
-				   currency : currency
+				   access_key : access_key,
+				   currencies : currency,
+				   source : source				  
 			   },
 			   success: function(data){
-				  
-				  var curr = data;
-				  if(curr != 0){
-					  /* value 값  */
-					  $('#exchangeRate').val(curr);
-					  
-					  /* 3자리 이상 콤마 표현  */
-					  curr = curr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-					  
-					  /* 환율 정보 */
-					   $('#exchangeRate').text(curr+' '+currency +'/USD');
-				  }else{
-					  alert('환율 정보를 가져오지 못했습니다.');
-				  }
-			  
-			   },/* success 끝 */
-			   error : function(error){
-				   alert('환율 정보를 가져오지 못했습니다.');
-			   }
+				   console.log(data);
+				  				   
+				   if(data.success){
+					   /* 수취국가 : 환율 반환 */
+					   var curr = Object.values(data.quotes);
+					   /* 소수점 2째자리까지 */   
+					   curr = parseFloat(curr).toFixed(2);
+					   $('#exchangeRate').val(curr);
+					   
+					   /* 3자리 이상 콤마 표현  */
+					   curr = curr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					   				   
+					   /* 환율 정보 */
+					   $('#exchangeRate').text(curr+' '+country +'/USD');
+					   
+				   }else{
+					   /* data.success == false */
+					   alert('서버 요청 실패');
+				   }
+			   }/* success 끝 */
 			   
 		   });/*ajax끝 */
 	}
 		
 
 	/* submit 버튼 클릭 */
-	$('#currForm').on('click','input[type=button]',function(){
+	$('#transferForm').on('click','input[type=button]',function(){
 		/* 송금액 */
 		var amount = $('#amount').val();
 		amount = parseInt(amount);
 		console.log(amount);
 		/* 수취국가 */
-		var currency = $('#currencies option:selected').val();
-		
+		var selectedCurrency = $('#currencies option:selected').val();
 		/* 현재 환율 */
-		var exrate = $('#exchangeRate').val();
-		exrate = parseFloat(exrate);
-		console.log(exrate);
-		
+		var currExrate = $('#exchangeRate').val();
+		currExrate = parseFloat(currExrate);
+		console.log(currExrate);
 		/* 	
 			송금 불가
 			1. 송금액 0원 이하인 경우
@@ -106,22 +113,17 @@
 		if(!amount || (amount <=0) || (amount > 10000)){
 			alert('송금액이 바르지 않습니다.');
 			return false;
-		}else if(!currency){
+		}else if(!selectedCurrency){
 			alert('수취국가를 선택하세요');
 			return false;
 		}else{
-			/* 수취금액 계산 */
-			var result = amount * exrate;
+			/* 수취금액 -> 계산! */
+			/* 수취 금액 계산 */
+			/* 여기 비동기 통신으로? */
+			var result = amount * currExrate;
+			console.log(amount * currExrate);
 			
-			/* 소수점 2째자리까지 */   
-			result = parseFloat(result).toFixed(2);
-				   
-			/* 3자리 이상 콤마 표현  */
-			result =  result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");	
-			
-			/* 수취금액 화면에 표현 */
-			$('#result').text('수취금액은 '+result+' '+ currency +' 입니다.');
-			
+			$('#result').text('수취금액은'+ result+'입니다');
 		}
 		
 		
