@@ -117,9 +117,7 @@
 			alert('수취국가를 선택하세요');
 			return false;
 		}else{
-			/* 수취금액 -> 계산! */
-			/* 수취 금액 계산 */
-			/* 여기 비동기 통신으로? */
+			/* 수취금액 계산해서 화면에 보여주기 */
 			var result = amount * currExrate;
 			console.log(amount * currExrate);
 			

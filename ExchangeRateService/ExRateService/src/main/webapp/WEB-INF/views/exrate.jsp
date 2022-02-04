@@ -36,7 +36,7 @@
 			</div>
 			<div>환율: <span id="exchangeRate"></span></div>
 			<div>송금액: <input type="number" id="amount" size="20px" maxlength="10" required> USD</div>
-			<div><input type="button" value ="submit" ></div>
+			<div><input type="button" value ="submit" onclick="btnClick()"></div>
 		</div> 
 	
 	<div id="result"></div> <!-- 수취금액 결과  -->
@@ -57,32 +57,36 @@
 				   currency : currency
 			   },
 			   success: function(data){
+				console.log(data);
+				
+				if(data.success){
+					var curr = data.currency;
+					
+				    /* value 값  */
+				    $('#exchangeRate').val(curr);
+						  
+				    /* 3자리 이상 콤마 표현  */
+					curr = curr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						  
+					/* 환율 정보 */
+				    $('#exchangeRate').text(curr+' '+currency +'/USD');
+				}else{
+					alert('환율 정보를 가져오지 못했습니다.');
+					$('#exchangeRate').text('');
+				}
 				  
-				  var curr = data;
-				  if(curr != 0){
-					  /* value 값  */
-					  $('#exchangeRate').val(curr);
-					  
-					  /* 3자리 이상 콤마 표현  */
-					  curr = curr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-					  
-					  /* 환율 정보 */
-					   $('#exchangeRate').text(curr+' '+currency +'/USD');
-				  }else{
-					  alert('환율 정보를 가져오지 못했습니다.');
-				  }
 			  
 			   },/* success 끝 */
-			   error : function(error){
-				   alert('환율 정보를 가져오지 못했습니다.');
-			   }
+			   error : function(request,status,error){
+					alert('환율 정보 가져오는 중 에러 발생');
+			   }/* error 끝  */
 			   
 		   });/*ajax끝 */
 	}
 		
 
 	/* submit 버튼 클릭 */
-	$('#currForm').on('click','input[type=button]',function(){
+	function btnClick(){
 		/* 송금액 */
 		var amount = $('#amount').val();
 		amount = parseInt(amount);
@@ -125,7 +129,8 @@
 		}
 		
 		
-	});
+	};
+	
 	
 	
 	</script>	

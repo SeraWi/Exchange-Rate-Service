@@ -16,8 +16,5 @@ public class IndexController {
 		return "exrate";
 	}
 	
-	public String index2() {
-		return "redirect:/exrate";
-	}
-	
+
 }
