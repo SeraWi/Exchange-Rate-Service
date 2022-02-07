@@ -19,32 +19,19 @@ public class ExrateController {
 	@Autowired
 	private CurrencyApiService currService;
 
-	// 환율 가져오기
-//	@GetMapping("/getExrate")
-//	public double getExrate(@RequestParam("currency")String currency) throws Exception {
-//		
-//		return currService.getCurrencyInfo(currency);
-//	}
-	
-	// 환율 가져오기
-//	@GetMapping("/getExrate")
-//	public ResponseEntity<Double> getExrate(@RequestParam("currency")String currency) throws Exception {
-//		double result = currService.getCurrencyInfo(currency);
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
-//	
-	
-//	@GetMapping("/getExrate")
-//	public CurrencyResponseDto getExrate(@RequestParam("currency")String currency) throws Exception {
-//		
-//		return currService.getCurrencyInfo(currency);
-//	}
 	
 	@GetMapping("/getExrate")
-	public ResponseEntity<CurrencyResponseDto > getExrate(@RequestParam("currency")String currency) throws Exception {
-		CurrencyResponseDto dto = currService.getCurrencyInfo(currency);
-		return  ResponseEntity.status(HttpStatus.OK).body(dto);
+	public CurrencyResponseDto getExrate(@RequestParam("currency")String currency) throws Exception {
+		
+		return currService.getCurrencyInfo(currency);
 	}
+	
+	
+//	@GetMapping("/getExrate")
+//	public ResponseEntity<CurrencyResponseDto > getExrate(@RequestParam("currency")String currency) throws Exception {
+//		CurrencyResponseDto dto = currService.getCurrencyInfo(currency);
+//		return  ResponseEntity.status(HttpStatus.OK).body(dto);
+//	}
 		
 	
 

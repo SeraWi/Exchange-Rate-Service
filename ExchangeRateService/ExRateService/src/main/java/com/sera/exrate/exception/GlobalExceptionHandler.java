@@ -25,11 +25,10 @@ public class GlobalExceptionHandler {
 		logger.error("nullpointerException 발생");
 		return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
 	}
-	
-		
+			
 	@ExceptionHandler(value =CurrencyApiException.class)
 	public CurrencyResponseDto handleCurrencyApiException(CurrencyApiException ex){
-		logger.error("apiEXception 발생");
+		logger.error("Api Exception 발생");
 		CurrencyResponseDto res = new CurrencyResponseDto(0.0,false, ex.getMessage());
 		return res;
 	}

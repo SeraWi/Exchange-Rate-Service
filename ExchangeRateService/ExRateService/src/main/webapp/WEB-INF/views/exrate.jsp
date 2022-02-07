@@ -62,8 +62,11 @@
 				if(data.success){
 					var curr = data.currency;
 					
-				    /* value 값  */
+				    /* span value 값  */
 				    $('#exchangeRate').val(curr);
+				    
+				    /* 소수점 2째자리까지 */   
+					curr = parseFloat(curr).toFixed(2);
 						  
 				    /* 3자리 이상 콤마 표현  */
 					curr = curr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -71,6 +74,7 @@
 					/* 환율 정보 */
 				    $('#exchangeRate').text(curr+' '+currency +'/USD');
 				}else{
+					/* API Exception 발생함 */
 					alert('환율 정보를 가져오지 못했습니다.');
 					$('#exchangeRate').text('');
 				}
@@ -78,7 +82,7 @@
 			  
 			   },/* success 끝 */
 			   error : function(request,status,error){
-					alert('환율 정보 가져오는 중 에러 발생');
+					alert('환율 정보를 가져오지 못했습니다.');
 			   }/* error 끝  */
 			   
 		   });/*ajax끝 */
@@ -130,8 +134,6 @@
 		
 		
 	};
-	
-	
 	
 	</script>	
 </body>
