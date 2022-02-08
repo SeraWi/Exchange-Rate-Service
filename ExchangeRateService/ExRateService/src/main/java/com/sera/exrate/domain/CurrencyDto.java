@@ -4,12 +4,13 @@ import java.util.Map;
 
 
 public class CurrencyDto {
+	// 환율 정보 가져오는 Dto
 	
-	private boolean success;
-	private String source;
+	private boolean success; 
+	private String source; // 송금국가
 	private int timestamp; 
-	private Map<String,Double> quotes; 
-	private Map<String,String> error;
+	private Map<String,Double> quotes; // 수취국가 : 환율
+	private Map<String,String> error;  // code : msg
 	
 	public CurrencyDto() {}
 	
