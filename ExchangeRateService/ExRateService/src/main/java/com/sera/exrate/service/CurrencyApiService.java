@@ -18,9 +18,7 @@ public class CurrencyApiService {
 	private static final String BASE_URL="http://api.currencylayer.com/";
 	private static final String SOURCE ="USD";
 	private static final String ENDPOINT ="live";
-
 	private final static Logger logger = LoggerFactory.getLogger(CurrencyApiService.class);
-	
 	
 	// 환율 정보 가져오기 
 	public CurrencyResponseDto getCurrencyInfo(String currency) throws Exception {
