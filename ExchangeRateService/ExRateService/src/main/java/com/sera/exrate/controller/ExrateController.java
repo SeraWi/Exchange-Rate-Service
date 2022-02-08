@@ -22,8 +22,6 @@ public class ExrateController {
 	// 환율 정보 요청
 	@GetMapping("/getExrate")
 	public CurrencyResponseDto getExrate(@RequestParam("currency")String currency) throws Exception {
-		
 		return currService.getCurrencyInfo(currency);
 	}
-	
 }
