@@ -47,7 +47,7 @@
 
 	/* select box 수취국가 선택시 ajax로 환율 정보 서버로 요청 */
 	function selectCurrency(currency){
-		/* 선택한 해당 수취국가 KRW  */
+		/* 선택한 해당 수취국가 */
 		var currency = currency;  	
 							
 		 $.ajax({
@@ -74,7 +74,7 @@
 					/* 환율 정보 */
 				    $('#exchangeRate').text(curr+' '+currency +'/USD');
 				}else{
-					/* API Exception 발생함 */
+					
 					alert('환율 정보를 가져오지 못했습니다.');
 					$('#exchangeRate').text('');
 				}
@@ -94,14 +94,12 @@
 		/* 송금액 */
 		var amount = $('#amount').val();
 		amount = parseInt(amount);
-		console.log(amount);
 		/* 수취국가 */
 		var currency = $('#currencies option:selected').val();
 		
 		/* 현재 환율 */
 		var exrate = $('#exchangeRate').val();
 		exrate = parseFloat(exrate);
-		console.log(exrate);
 		
 		/* 	
 			송금 불가
