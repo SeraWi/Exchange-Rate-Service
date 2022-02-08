@@ -3,6 +3,7 @@ package com.sera.exrate.exception;
 import org.springframework.http.HttpStatus;
 
 public class ErrorResponse {
+	// 에러 응답 객체
 	private int code;
 	private String message;
 

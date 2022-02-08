@@ -13,6 +13,7 @@ import com.sera.exrate.service.CurrencyApiService;
 @RestController
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
 	private final static Logger logger = LoggerFactory.getLogger(CurrencyApiService.class);
 	
 	@ExceptionHandler(value = Exception.class)
