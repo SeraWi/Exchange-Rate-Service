@@ -74,7 +74,6 @@
 					/* 환율 정보 */
 				    $('#exchangeRate').text(curr+' '+currency +'/USD');
 				}else{
-					
 					alert('환율 정보를 가져오지 못했습니다.');
 					$('#exchangeRate').text('');
 				}
