@@ -32,13 +32,12 @@ public class CurrencyApiServiceTest {
 
 	@Before
 	public void setUp() {
-		System.out.println("before");
 		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
 	public void test() throws Exception {
-		logger.info("service test");
+		logger.info("Api Service test");
 		response = service.getCurrencyInfo("PHP");
 		assertEquals(response.isSuccess(),true);
 	}
