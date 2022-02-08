@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = NullPointerException.class)
 	public ErrorResponse handleNullPointerException(NullPointerException ex){
-		logger.error("nullpointerException 발생");
+		logger.error("NullpointerException 발생");
 		return ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
 	}
 			
