@@ -8,13 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public class IndexController {
 
-	
 	@RequestMapping(value = "/")
 	public String index(){
-		
-		
 		return "main";
 	}
-	
 
 }
