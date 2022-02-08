@@ -13,7 +13,7 @@ public class IndexController {
 	public String index(){
 		
 		
-		return "exrate";
+		return "main";
 	}
 	
 
